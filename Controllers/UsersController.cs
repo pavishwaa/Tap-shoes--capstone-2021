@@ -60,18 +60,24 @@ namespace TapShoesCanada.Controllers
 				var data = _context.Users.Where(s =>
 			   s.Email.Equals(user.Email) && s.Password.Equals(password)).ToList();
 
-				if (data.Count() > 0)
+				if (data.Count > 0)
 				{
 					//var fullName = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
 					//var email = data.FirstOrDefault().Email;
 					return RedirectToAction("Index");
 				}
-				else 
+				else
 				{
 					ViewBag.err = "Login failed";
 					return RedirectToAction("Login");
 				}
 			}
+			else
+			
+				return RedirectToAction("Index");
+
+
+			
 			return View();
 		}
 
