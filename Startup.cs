@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
@@ -33,6 +33,12 @@ namespace TapShoesCanada
 					options =>
 					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+			services.AddDbContext<ShoeContext>(
+					options =>
+					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+
 			//services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"C:\temp-keys\"))
 			//	.UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
 			//	{
@@ -61,6 +67,7 @@ namespace TapShoesCanada
 			app.UseRouting();
 
 			app.UseAuthorization();
+		
 
 			app.UseEndpoints(endpoints =>
 			{

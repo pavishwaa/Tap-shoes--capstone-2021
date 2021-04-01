@@ -19,14 +19,19 @@ namespace TapShoesCanada.Controllers
 
 		private readonly UserContext _context;
 
-		public UsersController(UserContext context)
-		{
-			_context = context;
-		}
+
+
+			public UsersController(UserContext context)
+			{
+				_context = context;
+			}
 
 		public IActionResult Index()
 		{
-			return View();
+			
+				return View();
+			
+			
 		}
 
 		public IActionResult Register()
@@ -56,14 +61,16 @@ namespace TapShoesCanada.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				user.Password = "";
 				var password = GetMD5(user.Password);
 				var data = _context.Users.Where(s =>
 			   s.Email.Equals(user.Email) && s.Password.Equals(password)).ToList();
 
-				if (data.Count > 0)
+				if (data.Count>0)
 				{
 					//var fullName = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
 					//var email = data.FirstOrDefault().Email;
+					
 					return RedirectToAction("Index");
 				}
 				else
@@ -72,13 +79,11 @@ namespace TapShoesCanada.Controllers
 					return RedirectToAction("Login");
 				}
 			}
-			else
 			
-				return RedirectToAction("Index");
+
+			return View(user);
 
 
-			
-			return View();
 		}
 
 		public ActionResult Logout()

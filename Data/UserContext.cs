@@ -15,5 +15,7 @@ namespace TapShoesCanada.Data
 
 		public DbSet<User> Users { get; set; }
 
+		
+
 	}
 }
