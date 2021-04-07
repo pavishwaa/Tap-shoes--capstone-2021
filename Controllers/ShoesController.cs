@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using TapShoesCanada.Data;
 using TapShoesCanada.Models;
 
@@ -14,19 +15,21 @@ namespace TapShoesCanada.Controllers
     {
         private readonly ShoeContext _context;
 
+        
+
         public ShoesController(ShoeContext context)
         {
             _context = context;
         }
 
-        // GET: Shoes
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Shoes.ToListAsync());
-        }
+		//GET: Shoes
+		public async Task<IActionResult> Index()
+		{
+			return View(await _context.Shoes.ToListAsync());
+		}
 
-        // GET: Shoes/Details/5
-        public async Task<IActionResult> Details(int? id)
+		// GET: Shoes/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -43,8 +46,9 @@ namespace TapShoesCanada.Controllers
             return View(shoe);
         }
 
-        // GET: Shoes/Create
-        public IActionResult Create()
+
+		// GET: Shoes/Create
+		public IActionResult Create()
         {
             return View();
         }

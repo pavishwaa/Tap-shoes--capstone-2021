@@ -46,7 +46,7 @@ namespace TapShoesCanada.Controllers
 			_context.Add(user);
 			_context.SaveChanges();
 			ViewBag.message = "The user " + user.FirstName + " " + user.LastName + " is added succesfully!";
-			return View();
+			return RedirectToAction("Login");
 		}
 
 
@@ -55,41 +55,51 @@ namespace TapShoesCanada.Controllers
 			return View();
 		}
 
-			[HttpPost]
+		[HttpPost]
 		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
 		public IActionResult Login(User user)
 		{
-			if (ModelState.IsValid)
+			var _user = _context.Users.Where(s => s.Email == user.Email);
+			if (_user.Any())
 			{
-				user.Password = "";
-				var password = GetMD5(user.Password);
-				var data = _context.Users.Where(s =>
-			   s.Email.Equals(user.Email) && s.Password.Equals(password)).ToList();
 
-				if (data.Count>0)
+				if (_user.Where(s => s.Password == user.Password).Any())
 				{
-					//var fullName = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
-					//var email = data.FirstOrDefault().Email;
-					
-					return RedirectToAction("Index");
+					ViewBag.message = "Login Successfull!";
+					return RedirectToAction("Index", "Home");
+					//return Json(new { status = true, message = "Login Successfull!" });
 				}
 				else
 				{
-					ViewBag.err = "Login failed";
-					return RedirectToAction("Login");
+					ViewBag.message = "Incorrect password!";
+
+					//return Json(new { status = false, message = "Invalid Password!" });
+					return View();
 				}
 			}
-			
+			else
+			{
+				//return Json(new { status = false, message = "Invalid Email!" });
 
-			return View(user);
+				ViewBag.message = "Incorrect E-mail address!";
 
+				return View();
 
+			}
 		}
 
-		public ActionResult Logout()
+			
+
+		
+
+
+			public ActionResult Logout()
 		{
 			return RedirectToAction("Login");
 		}
+
+
 
 		public static string GetMD5(string str)
 		{
@@ -106,18 +116,7 @@ namespace TapShoesCanada.Controllers
 			return byte2String;
 		}
 
-		//public ActionResult Index()
-		//{
-		//	if (Session["UserId"] != null)
-		//	{
-		//		return RedirectToAction("Login");
-		//	}
-		//	else
-		//	{
-		//		return View();
-		//	}
-		//}
-
+	
 		////GET: Register
 
 		//public ActionResult Register()
