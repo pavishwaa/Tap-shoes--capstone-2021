@@ -19,29 +19,32 @@
                 @Html.DisplayNameFor(model => model.Style)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Model_Type)
+            </th>
+            @*
+            <th>
                 @Html.DisplayNameFor(model => model.Model)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Colour1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Colour2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sole)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lace)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Img_Lk)
-            </th>
+              <th>
+            @Html.DisplayNameFor(model => model.Colour1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colour2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sole)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Img_Lk)
+        </th>
+            *@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model_Type)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -54,6 +57,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Style)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model_Type)
+            </td>
+           @*
             <td>
                 @Html.DisplayFor(modelItem => item.Model)
             </td>
@@ -72,12 +79,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Img_Lk)
             </td>
+            *@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model_Type)
-            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
