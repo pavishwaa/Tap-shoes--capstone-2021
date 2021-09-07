@@ -19,6 +19,9 @@ namespace TapShoesCanada.Controllers
             _context = context;
         }
 
+
+        // Paging, install pagedlist for mvc
+
         // GET: Shoes
         public async Task<IActionResult> Index()
         {
