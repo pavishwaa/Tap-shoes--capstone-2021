@@ -52,7 +52,7 @@ namespace TapShoesCanada
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserContext userContext)
 		{
-			userContext.Database.EnsureCreated();
+		//	userContext.Database.EnsureCreated();
 
 			if (env.IsDevelopment())
 			{

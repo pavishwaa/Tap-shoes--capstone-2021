@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using TapShoesCanada.Data;
 using TapShoesCanada.Models;
 
@@ -15,21 +14,22 @@ namespace TapShoesCanada.Controllers
     {
         private readonly ShoeContext _context;
 
-        
-
         public ShoesController(ShoeContext context)
         {
             _context = context;
         }
 
-		//GET: Shoes
-		public async Task<IActionResult> Index()
-		{
-			return View(await _context.Shoes.ToListAsync());
-		}
 
-		// GET: Shoes/Details/5
-		public async Task<IActionResult> Details(int? id)
+        // Paging, install pagedlist for mvc
+
+        // GET: Shoes
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Shoes.ToListAsync());
+        }
+
+        // GET: Shoes/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -46,9 +46,8 @@ namespace TapShoesCanada.Controllers
             return View(shoe);
         }
 
-
-		// GET: Shoes/Create
-		public IActionResult Create()
+        // GET: Shoes/Create
+        public IActionResult Create()
         {
             return View();
         }
@@ -58,7 +57,7 @@ namespace TapShoesCanada.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Size,Color,Image")] Shoe shoe)
+        public async Task<IActionResult> Create([Bind("Id,Size,Style,Model,Colour1,Colour2,Sole,Lace,Img_Lk,Price,Model_Type")] Shoe shoe)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +89,7 @@ namespace TapShoesCanada.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Size,Color,Image")] Shoe shoe)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Size,Style,Model,Colour1,Colour2,Sole,Lace,Img_Lk,Price,Model_Type")] Shoe shoe)
         {
             if (id != shoe.Id)
             {
