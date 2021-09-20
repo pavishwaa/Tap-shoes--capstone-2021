@@ -1,11 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Tap Shoes Canada</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Tap Shoes Canada</title>
+	@*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+	<link rel="stylesheet" href="~/css/site.css" />
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	
 </head>
 <body>
     <header>
@@ -31,14 +37,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Shoes" asp-action="Index">Inventory</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CustomShoes" asp-action="Form">Custom shoes</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Shoes" asp-action="Create">Custom shoes</a>
                         </li>
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+					</ul>
+				</div>
+			</div>
+		</nav>*@
+	@*</header>*@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
