@@ -37,6 +37,12 @@ namespace TapShoesCanada
 					options =>
 					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+			services.AddDbContext<CustomShoeContext>(
+					options =>
+					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+
 
 
 			services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"C:\temp-keys\"))

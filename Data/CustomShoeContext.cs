@@ -7,14 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TapShoesCanada.Data
 {
-    public class ShoeContext : DbContext
+    public class CustomShoeContext : DbContext
     {
-        public ShoeContext(DbContextOptions<ShoeContext> options) : base(options)
-        { }
+
+        public CustomShoeContext(DbContextOptions<CustomShoeContext> options) : base(options)
+        {}
 
 
-        public DbSet<Shoe> Shoes { get; set; }
-
+        public DbSet<Custom_shoe> Custom_Shoes { get; set; }
     }
-
 }
