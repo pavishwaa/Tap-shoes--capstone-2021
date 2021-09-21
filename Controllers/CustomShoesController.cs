@@ -33,10 +33,10 @@ namespace TapShoesCanada.Controllers
 
 
             string[] smodel = new string[] { "Jazz Tap Master", "Triple Threat", "Tap Boot", "Rhythm HeelsPro", "Broadway Diva", "Classic Jane", "New Show Girl", "T Step", "La Coquette", "Sportap" };
-            SelectList list1 = new SelectList(smodel);
+            SelectList list1 = new SelectList(smodel); // ten available model of shoes
             ViewBag.Smodel = list1;
 
-            string[] sole = new string[] { "Black", "Natural", "Wood" };
+            string[] sole = new string[] { "Black", "Natural", "Wood" }; // options for sole
             SelectList list2 = new SelectList(sole);
             ViewBag.sole = list2;
 
@@ -51,15 +51,32 @@ namespace TapShoesCanada.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Size,Style,Model,Colour1,Colour2,Sole,Lace")] Custom_shoe cshoe)
+        public async Task<IActionResult> Create( Custom_shoe cshoe)
         {
+
+            
+
             if (ModelState.IsValid)
             {
+                
+                
+                cshoe.Size = Request.Form["Size"].ToString();
+                cshoe.Style = Request.Form["style"].ToString();
+               cshoe.Model = Request.Form["model"].ToString();
+                cshoe.Colour1 = Request.Form["Colour1"].ToString();
+                cshoe.Colour2 = Request.Form["Colour2"].ToString();
+                cshoe.Sole = Request.Form["sole"].ToString();
+                cshoe.Lace = Request.Form["Lace"].ToString();
+
                 _context.Add(cshoe);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+               await _context.SaveChangesAsync();
+                
+                return RedirectToAction("Index");
             }
-            return View(cshoe);
+            return View(RedirectToAction("Index"));
+
+
         }
+       
     }
 }

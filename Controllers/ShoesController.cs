@@ -61,6 +61,7 @@ namespace TapShoesCanada.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 _context.Add(shoe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
