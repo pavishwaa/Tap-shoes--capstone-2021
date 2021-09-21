@@ -1,12 +1,14 @@
 ﻿@model TapShoesCanada.Models.Custom_shoe
+@using System.Drawing
+
 
 @{
-    ViewData["Title"] = "Create Your custom Shoe";
+    ViewData["Title"] = " CustomShoe";
 }
 
-<h1>Custom Shoes </h1>
+<h1>Create CustomShoes </h1>
 
-<h4>Shoe</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,35 +18,36 @@
                 <label asp-for="Size" class="control-label"></label>
                 <input asp-for="Size" class="form-control" />
                 <span asp-validation-for="Size" class="text-danger"></span>
+                <label>34-50 with options of narrow and wide</label>
             </div>
             <div class="form-group">
                 <label asp-for="Style" class="control-label"></label>
-                <input asp-for="Style" class="form-control" />
+                @Html.DropDownList("list", ViewBag.Style as SelectList)
                 <span asp-validation-for="Style" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
+                @Html.DropDownList("smodel", ViewBag.Smodel as SelectList)
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Colour1" class="control-label"></label>
-                <input asp-for="Colour1" class="form-control" />
+                <input type="color" name="favcolor" value="#000000" >
                 <span asp-validation-for="Colour1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Colour2" class="control-label"></label>
-                <input asp-for="Colour2" class="form-control" />
+                <input type="color" name="favcolor" value="#000000">
                 <span asp-validation-for="Colour2" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Sole" class="control-label"></label>
-                <input asp-for="Sole" class="form-control" />
+                @Html.DropDownList("sole", ViewBag.sole as SelectList)
                 <span asp-validation-for="Sole" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Lace" class="control-label"></label>
-                <input asp-for="Lace" class="form-control" />
+                <input type="color" name="favcolor" value="#000000">
                 <span asp-validation-for="Lace" class="text-danger"></span>
             </div>
 
@@ -55,9 +58,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
