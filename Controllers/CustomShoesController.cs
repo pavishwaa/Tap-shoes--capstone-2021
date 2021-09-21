@@ -58,7 +58,9 @@ namespace TapShoesCanada.Controllers
 
             if (ModelState.IsValid)
             {
-                
+                int id = 4;
+                cshoe.Id = id;
+
                 
                 cshoe.Size = Request.Form["Size"].ToString();
                 cshoe.Style = Request.Form["style"].ToString();
