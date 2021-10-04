@@ -61,10 +61,10 @@ namespace TapShoesCanada.Controllers
                 int id = 4;
                 cshoe.Id = id;
 
-                
+                // set the selected parameters in custome shoes object
                 cshoe.Size = Request.Form["Size"].ToString();
                 cshoe.Style = Request.Form["style"].ToString();
-               cshoe.Model = Request.Form["model"].ToString();
+                cshoe.Model = Request.Form["model"].ToString();
                 cshoe.Colour1 = Request.Form["Colour1"].ToString();
                 cshoe.Colour2 = Request.Form["Colour2"].ToString();
                 cshoe.Sole = Request.Form["sole"].ToString();
@@ -73,7 +73,7 @@ namespace TapShoesCanada.Controllers
                 _context.Add(cshoe);
                await _context.SaveChangesAsync();
                 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); // Redirect to orders page of custom orders.
             }
             return View(RedirectToAction("Index"));
 
