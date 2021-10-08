@@ -1,27 +1,29 @@
 ﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
+ using System.Security.Claims;
+ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+ using Microsoft.AspNetCore.Authentication;
+ using Microsoft.AspNetCore.Authorization;
+ using Microsoft.AspNetCore.Http;
+ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TapShoesCanada.Data;
 using TapShoesCanada.Models;
 
-
-namespace TapShoesCanada.Controllers
+ namespace TapShoesCanada.Controllers
 {
     public class UsersController : Controller
     {    
 
-		private readonly UserContext _context;
+		private readonly ShoeContext _context;
+		
 
 
-
-			public UsersController(UserContext context)
+			public UsersController(ShoeContext context)
 			{
 				_context = context;
 			}
@@ -65,9 +67,11 @@ namespace TapShoesCanada.Controllers
 			{
 
 				if (_user.Where(s => s.Password == user.Password).Any())
-				{
-					ViewBag.message = "Login Successfull!";
-					return RedirectToAction("Index", "Home");
+                {
+                    User userObj = _user.Where(s => s.Password == user.Password).FirstOrDefault();
+                    HttpContext.Session.SetString(SessionData.loggedUserID,userObj.UserId.ToString());
+                    ViewBag.message = "Login Successfull!";
+                    return RedirectToAction("Index", "Home");
 					//return Json(new { status = true, message = "Login Successfull!" });
 				}
 				else

@@ -8,6 +8,7 @@ namespace TapShoesCanada.Models
 {
     public class Shoe
     {
+        [Required]
         public int Id { get; set; }
        // [DataType(DataType.size)]
         public string Size { get; set; }

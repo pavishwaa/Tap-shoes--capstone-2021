@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://www.paypal.com/sdk/js?client-id=ASx0IWzRwyJGJTv4i4s0pDSAi1oAznUpduvZBXXoDQNVwxT7YIIh8DtDQrIkUyurvOnaNw-sXghIrsR0&currency=INR"></script>
+
+<h1>Checkout</h1>
+
+<div class="container">
+    <p align="center"><div id="paypal-button-container"></div></p>
+</div>
+<script>
+
+    function startPayment(transaction) {
+        window.paypal.Buttons({
+
+            // Sets up the transaction when a payment button is clicked
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [transaction]
+                });
+            },
+
+            // Finalize the transaction after payer approval
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    // Successful capture! For dev/demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                    // When ready to go live, remove the alert and show a success message within this page. For example:
+                    // var element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+        }).render('#paypal-button-container');
+    }
+    
+    $(document).ready(() => {
+        $.ajax({
+            url: "@Url.ActionLink("CheckoutData","Cart")",
+            type: "Post",
+            success: function(data) {
+                var transaction = {};
+                var total = 0;
+                transaction.items = [];
+                for (var i = 0; i < data.length; i++) {
+                    var itemObj = data[i];
+                    var transactionItem = {
+                        "name": itemObj.shoe.model + " " + itemObj.shoe.colour1 + " " + itemObj.shoe.colour2,
+                        "description": "-",
+                        "unit_amount": {
+                            "currency_code": "INR",
+                            "value":itemObj.price
+                        },
+                        "quantity":itemObj.qty
+                    }
+                    transaction.items.push(transactionItem);
+                    total += data[i].totalPrice;
+                }
+                transaction.amount = {
+                    "currency_code": "INR",
+                    "value": total,
+                    "breakdown": {
+                        "item_total": {
+                            "currency_code": "INR",
+                            "value": total
+                        }
+                    }
+                }
+                console.log(transaction);
+                startPayment(transaction);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+
+
+</script>

@@ -1,4 +1,4 @@
-	using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
@@ -29,19 +29,12 @@ namespace TapShoesCanada
 		public void ConfigureServices(IServiceCollection services)
 		{
 
-			services.AddDbContext<UserContext>(
-					options =>
-					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+		    
 			services.AddDbContext<ShoeContext>(
 					options =>
 					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddDbContext<CustomShoeContext>(
-					options =>
-					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-
+		    services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); });
 
 
 
@@ -56,10 +49,10 @@ namespace TapShoesCanada
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserContext userContext)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ShoeContext userContext)
 		{
-		//	userContext.Database.EnsureCreated();
-
+			//userContext.Database.EnsureCreated();
+		    //userContext.Database.Migrate();
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -68,10 +61,12 @@ namespace TapShoesCanada
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
-			app.UseStaticFiles();
 
+            app.UseStaticFiles();
+            app.UseSession();
 			app.UseRouting();
 
+            //app.UseAuthentication();
 			app.UseAuthorization();
 		
 

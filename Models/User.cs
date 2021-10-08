@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace TapShoesCanada.Models
 {
+    public class SessionData
+    {
+        public static String loggedUserID = "loggedUserID";
+    }
 	public class User
 	{
 		[Key, Column(Order = 1)]

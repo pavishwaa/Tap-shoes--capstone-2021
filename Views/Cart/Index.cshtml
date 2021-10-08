@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TapShoesCanada.Models.Cart>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int No = 1;
+    decimal Total = 0;
+}
+
+<h1>Cart</h1>
+<hr/>
+@if(ViewBag.userNotFound != null) {
+    <div class="container">
+        <h2>Please login to your account to see the cart</h2>
+    </div>
+}else{ 
+    <div class="col-lg-12">
+        <form>
+            <div class="table-hover">
+                <table class="table table-borderless">
+                    <tr>
+                        <th>SrNO.</th>
+                        <th>Shoe @Html.DisplayNameFor(item => item.Shoe.Model)</th>
+
+                        <th>@Html.DisplayNameFor(item => item.Qty)</th>
+
+                        <th>@Html.DisplayNameFor(item => item.Price)</th>
+                        <th>@Html.DisplayNameFor(item => item.TotalPrice)</th>
+                        <th>Action</th>
+                    </tr>
+                    @foreach (var cartItem in Model)
+                    {
+                        <tr>
+                            <td>@No</td>
+                            <td>@cartItem.Shoe.Model</td>
+                            <td>@cartItem.Qty</td>
+                            <td>@cartItem.Price</td>
+                            <td>@cartItem.TotalPrice</td>
+                            <td><button formaction="@Url.ActionLink("View","Cart",new { id=cartItem.ShoeId })" formmethod="get" class="btn btn-primary">View</button> <button class="btn btn-danger" formmethod="post" type="submit" formaction="@Url.ActionLink("Remove","Cart",new { cartID=cartItem.CartUserId})">Remove</button></td>
+                        </tr>
+                        Total += cartItem.TotalPrice;
+                        No++;
+                    }
+                    <tr>
+                        <th colspan="4">Total</th>
+                        <th>@Total</th>
+                        <th>Rs</th>
+                    </tr>
+                    <tr>
+                        <th colspan="5"></th>
+                        <th><input type="submit" class="btn btn-primary" value="Checkout" formmethod="post" formaction="@Url.ActionLink("Checkout","Cart")"></th>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+}

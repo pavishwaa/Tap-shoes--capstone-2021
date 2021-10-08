@@ -14,9 +14,9 @@ namespace TapShoesCanada.Controllers
 {
     public class CustomShoesController : Controller
     {
-        private readonly CustomShoeContext _context;
+        private readonly ShoeContext _context;
 
-        public CustomShoesController(CustomShoeContext context)
+        public CustomShoesController(ShoeContext context)
         {
             _context = context;
         }
