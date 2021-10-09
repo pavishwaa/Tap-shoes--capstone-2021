@@ -128,5 +128,28 @@ namespace TapShoesCanada.Controllers
 
             return new JsonResult(cartItems);
         }
+
+        public IActionResult ClearCart()
+        {
+            List<Cart> cartItems = null;
+
+            String strUserID = HttpContext.Session.GetString(SessionData.loggedUserID);
+            if (strUserID == null)
+            {
+                ViewBag.userNotFound = "UserNotFound";
+            }
+            else
+            {
+                int UserID = Convert.ToInt32(strUserID);
+                cartItems = shoeContext.Carts.Where(item => item.CartUserId == UserID)
+                    .Include(item => item.Shoe).ToList();
+
+                shoeContext.Carts.RemoveRange(cartItems);
+                shoeContext.SaveChanges();
+
+            }
+
+            return View();
+        }
     }
 }
