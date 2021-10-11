@@ -9,7 +9,8 @@ namespace TapShoesCanada.Models
     public class Custom_shoe
     {
 
-         public int Id { get; set; }
+        
+        public int Id { get; set; }
         public string Size { get; set; }
         public string Style { get; set; }
         public string Model { get; set; }
