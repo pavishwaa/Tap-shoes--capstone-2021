@@ -8,6 +8,10 @@ namespace TapShoesCanada.Models
 {
     public class Shoe
     {
+        public Shoe() 
+        { 
+        }
+
         [Required]
         public int Id { get; set; }
        // [DataType(DataType.size)]
@@ -25,4 +29,6 @@ namespace TapShoesCanada.Models
         public string Model_Type { get; set; }
         // public string Available { get; set; }
     }
+
+   
 }

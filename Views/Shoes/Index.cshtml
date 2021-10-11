@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.Style)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Model_Type)
+                @Html.DisplayNameFor(model => model.Model)
             </th>
             @*
            
@@ -41,7 +41,7 @@
                 @Html.DisplayFor(modelItem => item.Style)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Model_Type)
+                @Html.DisplayFor(modelItem => item.Model)
             </td>
            @*
             
@@ -52,7 +52,8 @@
 
             <td>
               @*  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
- *@               <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+ *@               <a asp-action="Details" asp-route-id="@item.Id">Details |</a> 
+                <a asp-action="Index" asp-controller="Cart" asp-route-id="@item.Id" >Add to cart</a>
                @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
             </td>
         </tr>
