@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="https://www.paypal.com/sdk/js?client-id=ASx0IWzRwyJGJTv4i4s0pDSAi1oAznUpduvZBXXoDQNVwxT7YIIh8DtDQrIkUyurvOnaNw-sXghIrsR0&currency=INR"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=ASx0IWzRwyJGJTv4i4s0pDSAi1oAznUpduvZBXXoDQNVwxT7YIIh8DtDQrIkUyurvOnaNw-sXghIrsR0&currency=CAD"></script>
 
 <h1>Checkout</h1>
 
@@ -30,7 +30,7 @@
                     console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                     var transaction = orderData.purchase_units[0].payments.captures[0];
                     alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
-                    actions.redirect(@Url.ActionLink("Clear","Cart"));
+                    actions.redirect("@Url.ActionLink("Clear","Cart")");
                     // When ready to go live, remove the alert and show a success message within this page. For example:
                     // var element = document.getElementById('paypal-button-container');
                     // element.innerHTML = '';
@@ -55,7 +55,7 @@
                         "name": itemObj.shoe.model + " " + itemObj.shoe.colour1 + " " + itemObj.shoe.colour2,
                         "description": "-",
                         "unit_amount": {
-                            "currency_code": "INR",
+                            "currency_code": "CAD",
                             "value":itemObj.price
                         },
                         "quantity":itemObj.qty
@@ -64,11 +64,11 @@
                     total += data[i].totalPrice;
                 }
                 transaction.amount = {
-                    "currency_code": "INR",
+                    "currency_code": "CAD",
                     "value": total,
                     "breakdown": {
                         "item_total": {
-                            "currency_code": "INR",
+                            "currency_code": "CAD",
                             "value": total
                         }
                     }

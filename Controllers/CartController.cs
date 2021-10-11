@@ -38,7 +38,7 @@ namespace TapShoesCanada.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(int id,int qty)
+        public IActionResult Add(int? id,int qty, Custom_shoe? shoe)
         {
             Shoe shoeObj = shoeContext.Shoes.SingleOrDefault(item => item.Id == id);
             Cart cartItemObj = new Cart();
@@ -49,7 +49,7 @@ namespace TapShoesCanada.Controllers
                 cartItemObj.CartUserId = UserID;
                 cartItemObj.Price = shoeObj.Price;
                 cartItemObj.Qty = qty;
-                cartItemObj.ShoeId = id;
+                cartItemObj.ShoeId = (int)id;
                 cartItemObj.TotalPrice = qty * shoeObj.Price;
                 cartItemObj.PaymentStatus = PaymentStatus.Done.ToString();
                 shoeContext.Carts.Add(cartItemObj);
