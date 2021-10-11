@@ -79,6 +79,7 @@ namespace TapShoesCanada.Controllers
             Cart cartObj = shoeContext.Carts.Find(cartId);
             if (cartObj != null)
             {
+                
                 shoeContext.Carts.Remove(cartObj);
                 shoeContext.SaveChanges();
             }

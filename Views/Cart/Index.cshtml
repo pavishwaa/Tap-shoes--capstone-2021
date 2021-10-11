@@ -36,16 +36,17 @@
                             <td>@cartItem.Qty</td>
                             <td>@cartItem.Price</td>
                             <td>@cartItem.TotalPrice</td>
-                            <td><button formaction="@Url.ActionLink("View","Cart",new { id=cartItem.ShoeId })" formmethod="get" class="btn btn-primary">View</button> <button class="btn btn-danger" formmethod="post" type="submit" formaction="@Url.ActionLink("Remove","Cart",new { cartID=cartItem.CartUserId})">Remove</button></td>
+                            <td><button formaction="@Url.ActionLink("View","Cart",new { id=cartItem.ShoeId })" formmethod="get" class="btn btn-primary">View</button>
+                                <button formaction="@Url.ActionLink("Remove","Cart",new { cartID=cartItem.CartItemId})" class="btn btn-danger" formmethod="post" type="submit" >Remove</button></td>
                         </tr>
                         Total += cartItem.TotalPrice;
                         No++;
                     }
-                    <tr>
+                    <tr> 
                         <th colspan="4">Total</th>
 
                         <th>@Total</th>
-                        <th>Rs</th>
+                        <th>$</th>
                     </tr>
                     <tr>
                         <th colspan="5"></th>
