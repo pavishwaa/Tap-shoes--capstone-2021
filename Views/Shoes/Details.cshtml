@@ -1,101 +1,168 @@
 ﻿@model TapShoesCanada.Models.Shoe
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-@using (Html.BeginForm())
-{
-    <div style="width:100%; overflow:hidden">
+
+<style>
+
+
+	input[type=submit] {
+		width: 20%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+
+	section div {
+		background-color: #f2f2f2;
+		padding: 15px;
+		left: 25%;
+		width: 100%;
+	}
+
+	img {
+		height: 300px;
+		width: 300px;
+	}
+</style>
+
+<body>
+
+	<h1>Details</h1>
+	@using (Html.BeginForm())
+	{
+		<div style="width:100%; overflow:hidden">
 
 
 
-        <div style="width:600px;float:left">
-            <h4>Shoe</h4>
-            <hr />
-            @Html.Hidden("id", Model.Id)
+			<div style="width:600px;float:left">
+				<hr />
+				@Html.Hidden("id", Model.Id)
 
+				<section>
 
-            <dl class="row">
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Size)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Size)
-                </dd>
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Style)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Style)
-                </dd>
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Model)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Model)
-                </dd>
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Colour1)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Colour1)
-                </dd>
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Colour2)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Colour2)
-                </dd>
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Sole)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Sole)
-                </dd>
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Lace)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Lace)
-                </dd>
-                @*  <dt class="col-sm-2 col-lg-2">
-                        @Html.DisplayNameFor(model => model.Img_Lk)
-                    </dt>
-                    <dd class="col-sm-10 col-lg-10">
-                        @Html.DisplayFor(model => model.Img_Lk)
-                    </dd>*@
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Price)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Price)
-                </dd>
-                <dt class="col-sm-2 col-lg-2">
-                    @Html.DisplayNameFor(model => model.Model_Type)
-                </dt>
-                <dd class="col-sm-10 col-lg-10">
-                    @Html.DisplayFor(model => model.Model_Type)
-                </dd>
-            </dl>
-            @Html.TextBox("qty", 1)
+					<dl class="row">
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Size)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Size)
+							</dd>
+						</div>
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Style)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Style)
+							</dd>
+						</div>
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Model)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Model)
+							</dd>
+						</div>
 
-        </div>
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Colour1)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Colour1)
+							</dd>
+						</div>
 
-        <div style="margin-left:620px;">
-            <img src="@Model.Img_Lk" width="300" , height="300"  style="padding-top:70px"/>
-        </div>
-    </div>
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Colour2)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Colour2)
+							</dd>
+						</div>
 
-    <div>
-        <input class="btn btn-danger" value="Add to cart" type="submit" formaction=@Url.Action("Add","Cart",new { id=Model.Id }) formmethod="post" />
-    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
-        <a asp-action="Index">Back to List</a>
-    </div>
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Sole)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Sole)
+							</dd>
+						</div>
 
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Lace)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Lace)
+							</dd>
+						</div>
+						@*  <dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Img_Lk)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Img_Lk)
+							</dd>*@
 
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Price)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Price)
+							</dd>
+						</div>
 
+						<div>
+							<dt class="col-sm-2 col-lg-2">
+								@Html.DisplayNameFor(model => model.Model_Type)
+							</dt>
+							<dd class="col-sm-10 col-lg-10">
+								@Html.DisplayFor(model => model.Model_Type)
+							</dd>
+							<br />
+						</div>
 
+					</dl>
 
-}
+				</section>
+				<div>
+					<label>	Enter Quntity </label>
+					@Html.TextBox("qty", 1)
+
+				</div>
+
+			</div>
+
+			<section>
+				<div style="margin-left:620px;">
+					<img src="@Model.Img_Lk" />
+				</div>
+			</section>
+		</div>
+
+		<div>
+			<input class="btn btn-primary" value="Add to cart" type="submit" formaction=@Url.Action("Add","Cart",new { id=Model.Id }) formmethod="post" />
+			@*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+			<br>
+			<input class="btn btn-primary" value="Back to list" type="submit" asp-action="Index" />
+
+			@*<a asp-action="Index">Back to List</a>*@
+		</div>
+	}
+</body>

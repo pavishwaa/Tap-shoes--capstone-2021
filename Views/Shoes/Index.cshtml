@@ -1,16 +1,38 @@
 ﻿@model IEnumerable<TapShoesCanada.Models.Shoe>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
+
+<style>
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th, td {
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #f2f2f2
+	}
+
+	th {
+		background-color: #04AA6D;
+		color: white;
+	}
+</style>
+
 
 <h1>Index</h1>
 
 <p>
-    
+
 </p>
 <table class="table">
-    <thead>
+	<thead>
 		<tr>
 			<th>
 				@Html.DisplayNameFor(model => model.Size)
@@ -34,36 +56,37 @@
 
 			<th></th>
 		</tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.Size)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Style)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Model)
-			</td>
-			<td>
-				@*	@Html.DisplayFor(model => item.Img_Lk)*@
-				<img src="@item.Img_Lk" height="100px" width="100px">
-			</td>
-			@*
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Size)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Style)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Model)
+				</td>
+				<td>
+					@*	@Html.DisplayFor(model => item.Img_Lk)*@
+					<img src="@item.Img_Lk" height="70" width="70">
+				</td>
+				@*
 
-			*@
-		<td>
-			@Html.DisplayFor(modelItem => item.Price)
-		</td>
+				*@
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
 
-			<td>
-				@*  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-				*@               <a asp-action="Details" asp-route-id="@item.Id">Details </a>
-				@* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-			</td>
-		</tr>
-}
-    </tbody>
+				<td>
+					@*  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					*@               <a asp-action="Details" asp-route-id="@item.Id">Details </a>
+					@* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
