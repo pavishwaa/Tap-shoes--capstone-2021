@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TapShoesCanada.Data;
@@ -26,6 +27,26 @@ namespace TapShoesCanada.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Shoes.ToListAsync());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Filter(FilterOptions filterOptions)
+        {
+            if (filterOptions.ShoeSizes != null)
+            {
+                String[] shoeSizesFilter = filterOptions.ShoeSizes.Split(',');
+                var filteredList = _context.Shoes.ToList().Where(item =>
+                {
+                    return shoeSizesFilter.Where(filterItem =>
+                        item.Size.StartsWith(filterItem)).Any();
+
+                }).ToList();
+                return View("Index", filteredList);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // GET: Shoes/Details/5

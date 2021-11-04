@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -130,6 +132,7 @@ namespace TapShoesCanada.Controllers
             return new JsonResult(cartItems);
         }
 
+
         public IActionResult ClearCart()
         {
             List<Cart> cartItems = null;
@@ -152,5 +155,8 @@ namespace TapShoesCanada.Controllers
 
             return View();
         }
+
+
+        
     }
 }
