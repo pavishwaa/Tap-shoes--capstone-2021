@@ -33,7 +33,7 @@ namespace TapShoesCanada
 			services.AddDbContext<ShoeContext>(
 					options =>
 					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            
 		    services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); });
 
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
@@ -58,8 +59,6 @@ namespace TapShoesCanada.Controllers
 
             if (ModelState.IsValid)
             {
-                
-
                 // set the selected parameters in custome shoes object
                 cshoe.Size = Request.Form["Size"].ToString();
                 cshoe.Style = Request.Form["style"].ToString();
@@ -70,14 +69,46 @@ namespace TapShoesCanada.Controllers
                 cshoe.Lace = Request.Form["Lace"].ToString();
 
                 _context.Add(cshoe);
-               await _context.SaveChangesAsync();
-                
-                return RedirectToAction("Index"); // Redirect to orders page of custom orders.
-            }
-            return View(RedirectToAction("Index"));
+                int UserID = Convert.ToInt32(HttpContext.Session.GetString(SessionData.loggedUserID));
+                if (UserID == 0) UserID = -1;
 
+                CartCustomShoe cartCustomShoe = new CartCustomShoe();
+                cartCustomShoe.CartUserId = UserID;
+                cartCustomShoe.PaymentStatus = PaymentStatus.Pending.ToString();
+                cartCustomShoe.Price = ConfigParams.CUSTOM_SHOE_FIXED_PRICE;
+                cartCustomShoe.Qty = 1;
+                cartCustomShoe.TotalPrice = ConfigParams.CUSTOM_SHOE_FIXED_PRICE;
+                cartCustomShoe.Shoe = cshoe;
+                _context.CartCustomShoes.Add(cartCustomShoe);
+                await _context.SaveChangesAsync();
+                int cartItemId = cartCustomShoe.CartItemId;
+                if (!Request.Cookies.ContainsKey(ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME))
+                {
+                    CookieOperations.Set(Response.Cookies,ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME,cartItemId.ToString());
+                }
+                else
+                {
+                    String customCartItems = CookieOperations.Read(Request.Cookies, ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME);
+                    customCartItems += "," + cartItemId.ToString();
+                    CookieOperations.Set(Response.Cookies,ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME,customCartItems);
+                }
+            }
+            return RedirectToAction("Index");
 
         }
-       
+
+        [ActionName("CookieCart")]
+        public String GetCartItemsFromCookies()
+        {
+            return CookieOperations.Read(Request.Cookies, ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME);
+        }
+
+        [ActionName("ClearCookie")]
+        public String ClearCookie()
+        {
+            CookieOperations.Remove(Response.Cookies,ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME);
+            CookieOperations.Remove(Response.Cookies,ConfigParams.CART_ITEM_COOKIE_NAME);
+            return "True";
+        }       
     }
 }

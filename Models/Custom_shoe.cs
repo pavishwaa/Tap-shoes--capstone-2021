@@ -19,7 +19,7 @@ namespace TapShoesCanada.Models
         public string Sole { get; set; }
         public string Lace { get; set; }
         
-       }
-    
     }
+    
+}
 

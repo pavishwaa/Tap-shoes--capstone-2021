@@ -52,8 +52,9 @@ using TapShoesCanada.Models;
 		}
 
 
-		public IActionResult Login()
-		{
+		public IActionResult Login(Boolean checkoutLogin)
+        {
+            if (checkoutLogin) ViewBag.message = "Login to checkout!";
 			return View();
 		}
 
@@ -95,10 +96,7 @@ using TapShoesCanada.Models;
 
 			
 
-		
-
-
-			public ActionResult Logout()
+        public ActionResult Logout()
 		{
 			return RedirectToAction("Login");
 		}
