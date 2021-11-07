@@ -26,7 +26,7 @@ namespace TapShoesCanada.Controllers
                 List<Order> orders = _context.Orders.Include(item=>item.Address).Where(item => item.Address.User.UserId.ToString().Equals(UserID)).ToList();
                 return View(orders);
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Login","Users",new { message="Please login to see Orders" });
         }
 
         public IActionResult Details(int id)

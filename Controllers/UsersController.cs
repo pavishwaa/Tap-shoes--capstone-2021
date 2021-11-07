@@ -52,9 +52,13 @@ using TapShoesCanada.Models;
 		}
 
 
-		public IActionResult Login(Boolean checkoutLogin)
+		public IActionResult Login(Boolean checkoutLogin,String message)
         {
             if (checkoutLogin) ViewBag.message = "Login to checkout!";
+            if (message != "")
+            {
+                ViewBag.message = message;
+            } 
 			return View();
 		}
 
