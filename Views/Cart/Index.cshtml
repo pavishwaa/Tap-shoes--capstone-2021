@@ -80,10 +80,13 @@
                         <th>@Total</th>
                         <th>$</th>
                     </tr>
-                    <tr>
-                        <th colspan="5"></th>
-                        <th><input type="submit" class="btn btn-primary" value="Checkout" formmethod="post" formaction="@Url.ActionLink("Checkout","Cart")"></th>
-                    </tr>
+                    @if (Model.Carts != null || Model.CustomCarts != null)
+                    {
+                        <tr>
+                            <th colspan="5"></th>
+                            <th><input type="submit" class="btn btn-primary" value="Checkout" formmethod="post" formaction="@Url.ActionLink("Checkout", "Cart")"></th>
+                        </tr>
+                    }
                 </table>
             </div>
         </form>

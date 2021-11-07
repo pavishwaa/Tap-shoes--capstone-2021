@@ -29,8 +29,20 @@
                     // Successful capture! For dev/demo purposes:
                     console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                     var transaction = orderData.purchase_units[0].payments.captures[0];
-                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
-                    actions.redirect("@Url.ActionLink("Clear","Cart")");
+                    //alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                    $.ajax({
+                        url: "@Url.Action("ProcessOrder","Cart")",
+                        type: "POST",
+                        data: {
+                            transactionId: transaction.id
+                        },
+                        success: function() {
+                            actions.redirect("@Url.ActionLink("Index","Cart")");
+                        },
+                        error: function() {
+                            alert("Something Went Wrong");
+                        }
+                    });
                     // When ready to go live, remove the alert and show a success message within this page. For example:
                     // var element = document.getElementById('paypal-button-container');
                     // element.innerHTML = '';
@@ -49,8 +61,8 @@
                 var transaction = {};
                 var total = 0;
                 transaction.items = [];
-                for (var i = 0; i < data.length; i++) {
-                    var itemObj = data[i];
+                for (var i = 0; i < data.carts.length; i++) {
+                    var itemObj = data.carts[i];
                     var transactionItem = {
                         "name": itemObj.shoe.model + " " + itemObj.shoe.colour1 + " " + itemObj.shoe.colour2,
                         "description": "-",
@@ -61,8 +73,34 @@
                         "quantity":itemObj.qty
                     }
                     transaction.items.push(transactionItem);
-                    total += data[i].totalPrice;
+                    total += data.carts[i].totalPrice;
                 }
+                for (var i = 0; i < data.customCarts.length; i++) {
+                    var itemObj = data.customCarts[i];
+                    var transactionItem = {
+                        "name": itemObj.shoe.model + " " + itemObj.shoe.colour1 + " " + itemObj.shoe.colour2,
+                        "description": "-",
+                        "unit_amount": {
+                            "currency_code": "CAD",
+                            "value": itemObj.price
+                        },
+                        "quantity": itemObj.qty
+                    }
+                    transaction.items.push(transactionItem);
+                    total += data.customCarts[i].totalPrice;
+                }
+                var transactionItem = {
+                    "name": "GST:",
+                    "description": "-",
+                    "unit_amount": {
+                        "currency_code": "CAD",
+                        "value": total * Number(data.gstRate) / 100
+                    },
+                    "quantity": 1
+                }
+                transaction.items.push(transactionItem);
+                total += transactionItem.unit_amount.value;
+
                 transaction.amount = {
                     "currency_code": "CAD",
                     "value": total,

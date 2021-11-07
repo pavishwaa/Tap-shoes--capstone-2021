@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TapShoesCanada.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartItems)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomCartItems)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.paymentStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address.AddressId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CartItems)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomCartItems)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paymentStatus)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

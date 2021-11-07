@@ -73,19 +73,9 @@ namespace TapShoesCanada.Controllers
                         .Include(item => item.Shoe).ToList();
                 }
 
-                if (customCart.CustomCarts != null)
+                if (customCart.Carts != null)
                 {
                     foreach (var obj in customCart.Carts)
-                    {
-                        obj.CartUserId = Convert.ToInt32(strUserID);
-                    }
-                    shoeContext.CartCustomShoes.UpdateRange(customCart.CustomCarts);
-                    CookieOperations.Remove(Response.Cookies, ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME);
-                    shoeContext.SaveChanges();
-                }
-
-                if (customCart.Carts != null) { 
-                    foreach (var obj in customCart.CustomCarts)
                     {
                         obj.CartUserId = Convert.ToInt32(strUserID);
                     }
@@ -94,11 +84,21 @@ namespace TapShoesCanada.Controllers
                     shoeContext.SaveChanges();
                 }
 
+                if (customCart.CustomCarts != null) { 
+                    foreach (var obj in customCart.CustomCarts)
+                    {
+                        obj.CartUserId = Convert.ToInt32(strUserID);
+                    }
+                    shoeContext.CartCustomShoes.UpdateRange(customCart.CustomCarts);
+                    CookieOperations.Remove(Response.Cookies, ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME);
+                    shoeContext.SaveChanges();
+                }
+
                 int UserID = Convert.ToInt32(strUserID);
-                customCart.Carts = shoeContext.Carts.Where(item => item.CartUserId == UserID)
+                customCart.Carts = shoeContext.Carts.Where(item => item.CartUserId == UserID && item.PaymentStatus == PaymentStatus.Pending.ToString())
                  
                     .Include(item => item.Shoe).ToList();
-                customCart.CustomCarts = shoeContext.CartCustomShoes.Where(item => item.CartUserId == UserID)
+                customCart.CustomCarts = shoeContext.CartCustomShoes.Where(item => item.CartUserId == UserID && item.PaymentStatus == PaymentStatus.Pending.ToString())
                     .Include(item => item.Shoe).ToList();
             }
 
@@ -121,7 +121,7 @@ namespace TapShoesCanada.Controllers
                 cartItemObj.Qty = qty;
                 cartItemObj.ShoeId = (int)id;
                 cartItemObj.TotalPrice = qty * shoeObj.Price;
-                cartItemObj.PaymentStatus = PaymentStatus.Done.ToString();
+                cartItemObj.PaymentStatus = PaymentStatus.Pending.ToString();
                 shoeContext.Carts.Add(cartItemObj);
 
                 shoeContext.SaveChanges();
@@ -210,7 +210,13 @@ namespace TapShoesCanada.Controllers
                 String strMessage = "Please login to checkout";
                 return RedirectToAction("Login", "Users",new { checkoutLogin = true });
             }
-            return View();
+            return RedirectToAction("List","Address");
+        }
+
+        public IActionResult Payment()
+        {
+            
+            return View("Checkout");
         }
 
         [HttpPost]
@@ -218,6 +224,7 @@ namespace TapShoesCanada.Controllers
         public IActionResult getCheckoutData()
         {
             List<Cart> cartItems = null;
+            List<CartCustomShoe> customCartItems = null;
             String strUserID = HttpContext.Session.GetString(SessionData.loggedUserID);
             if (strUserID == null)
             {
@@ -228,30 +235,73 @@ namespace TapShoesCanada.Controllers
                 int UserID = Convert.ToInt32(strUserID);
                 cartItems = shoeContext.Carts.Where(item => item.CartUserId == UserID)
                     .Include(item => item.Shoe).ToList();
+                customCartItems = shoeContext.CartCustomShoes.Where(item => item.CartUserId == UserID)
+                    .Include(item => item.Shoe).ToList();
+              
             }
-
-            return new JsonResult(cartItems);
+            CustomCart customCartObj = new CustomCart();
+            customCartObj.Carts = cartItems;
+            customCartObj.CustomCarts = customCartItems;
+            return new JsonResult(customCartObj);
         }
         [ActionName("CheckoutDataRead")]
         public IActionResult ReadingCartData()
         {
-            List<Cart> cartItems = null;
-            String strUserID = HttpContext.Session.GetString(SessionData.loggedUserID);
-            if (strUserID == null)
-            {
-                ViewBag.userNotFound = "UserNotFound";
-            }
-            else
-            {
-                int UserID = Convert.ToInt32(strUserID);
-                cartItems = shoeContext.Carts.Where(item => item.CartUserId == UserID)
-                    .Include(item => item.Shoe).ToList();
-            }
-
-            return new JsonResult(cartItems);
+            return getCheckoutData();
         }
 
+        [HttpPost]
+        public IActionResult ProcessOrder(String transactionId)
+        {
+            String strUserID = HttpContext.Session.GetString(SessionData.loggedUserID);
+            int? addressId = HttpContext.Session.GetInt32(SessionData.selectedAddressID);
+            if (strUserID != null)
+            {
+                int UserID = Convert.ToInt32(strUserID);
+                var 
+                    cartItems = shoeContext.Carts.Where(item => item.CartUserId == UserID && item.PaymentStatus == PaymentStatus.Pending.ToString())
+                    .Include(item => item.Shoe).ToList();
 
+                var
+                    customCartItems = shoeContext.CartCustomShoes.Where(item => item.CartUserId == UserID && item.PaymentStatus == PaymentStatus.Pending.ToString())
+                        .Include(item => item.Shoe).ToList();
+                
+                String cartItemsStr = "";
+                foreach (var cartItem in cartItems)
+                {
+                    cartItemsStr += cartItem.CartItemId + ",";
+                    cartItem.PaymentStatus = PaymentStatus.Done.ToString();
+                }
+                cartItemsStr = cartItemsStr.Trim(',');
+
+                String customCartItemsStr = "";
+                foreach (var customCartItem in customCartItems)
+                {
+                    customCartItemsStr += customCartItem.CartItemId + ",";
+                    customCartItem.PaymentStatus = PaymentStatus.Done.ToString();
+                }
+                customCartItemsStr = customCartItemsStr.Trim(',');
+                shoeContext.Carts.UpdateRange(cartItems);
+                shoeContext.CartCustomShoes.UpdateRange(customCartItems);
+                
+                Order orderObj = new Order();
+                orderObj.TransactionId = transactionId;
+                orderObj.CartItems = cartItemsStr;
+                orderObj.CustomCartItems = customCartItemsStr;
+                orderObj.AddressId = addressId??-1;
+                orderObj.paymentStatus = PaymentStatus.Done.ToString();
+                shoeContext.Orders.Add(orderObj);
+
+                shoeContext.SaveChanges();
+                return new JsonResult(new {
+                    status = true
+                });
+            }
+
+            return new JsonResult(new {
+                status = false
+            });
+        }
         public IActionResult ClearCart()
         {
             List<Cart> cartItems = null;

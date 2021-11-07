@@ -9,5 +9,10 @@ namespace TapShoesCanada.Models
     {
         public List<Cart> Carts { get; set; }
         public List<CartCustomShoe> CustomCarts { get; set; }
+
+        public float GstRate
+        {
+            get { return ConfigParams.GST_RATE; }
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace TapShoesCanada.Models
         internal static string CART_ITEM_COOKIE_NAME = "cartItems";
         internal static string CUSTOM_CART_ITEM_COOKIE_NAME = "customCartItems";
         internal static int CUSTOM_SHOE_FIXED_PRICE = 500;
+        internal static float GST_RATE = 15.0f;
     }
 }

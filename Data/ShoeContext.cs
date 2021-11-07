@@ -19,6 +19,8 @@ namespace TapShoesCanada.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartCustomShoe> CartCustomShoes { get; set; } 
         public DbSet<User> Users { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public DbSet<Custom_shoe> Custom_Shoes { get; set; }
     }

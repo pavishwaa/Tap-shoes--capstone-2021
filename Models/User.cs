@@ -10,6 +10,7 @@ namespace TapShoesCanada.Models
     public class SessionData
     {
         public static String loggedUserID = "loggedUserID";
+        public static String selectedAddressID = "selectedAddressID";
     }
 	public class User
 	{
