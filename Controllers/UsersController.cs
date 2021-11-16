@@ -101,7 +101,9 @@ using TapShoesCanada.Models;
 			
 
         public ActionResult Logout()
+
 		{
+			
 			return RedirectToAction("Login");
 		}
 
