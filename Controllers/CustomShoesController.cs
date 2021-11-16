@@ -52,7 +52,7 @@ namespace TapShoesCanada.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Custom_shoe cshoe)
+        public async Task<IActionResult> Create( Custom_shoe cshoe, int qty)
         {
 
             
@@ -76,8 +76,8 @@ namespace TapShoesCanada.Controllers
                 cartCustomShoe.CartUserId = UserID;
                 cartCustomShoe.PaymentStatus = PaymentStatus.Pending.ToString();
                 cartCustomShoe.Price = ConfigParams.CUSTOM_SHOE_FIXED_PRICE;
-                cartCustomShoe.Qty = 1;
-                cartCustomShoe.TotalPrice = ConfigParams.CUSTOM_SHOE_FIXED_PRICE;
+                cartCustomShoe.Qty = qty;
+                cartCustomShoe.TotalPrice = ConfigParams.CUSTOM_SHOE_FIXED_PRICE * qty;
                 cartCustomShoe.Shoe = cshoe;
                 _context.CartCustomShoes.Add(cartCustomShoe);
                 await _context.SaveChangesAsync();
@@ -93,7 +93,7 @@ namespace TapShoesCanada.Controllers
                     CookieOperations.Set(Response.Cookies,ConfigParams.CUSTOM_CART_ITEM_COOKIE_NAME,customCartItems);
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Cart");
 
         }
 

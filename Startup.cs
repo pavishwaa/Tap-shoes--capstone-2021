@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
@@ -74,7 +74,7 @@ namespace TapShoesCanada
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Users}/{action=Login}/{id?}");
+					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
 		}
 	}

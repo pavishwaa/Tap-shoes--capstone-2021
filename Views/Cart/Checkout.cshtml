@@ -101,6 +101,18 @@
                 transaction.items.push(transactionItem);
                 total += transactionItem.unit_amount.value;
 
+                var transactionItem = {
+                    "name": "Delivery Charge:",
+                    "desciption": "-",
+                    "unit_amount": {
+                        "currency_code": "CAD",
+                        "value": 40
+                    },
+                    "quantity": 1
+                }
+                transaction.items.push(transactionItem);
+                total += 40;
+
                 transaction.amount = {
                     "currency_code": "CAD",
                     "value": total,

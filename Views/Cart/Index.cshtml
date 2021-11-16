@@ -4,7 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int No = 1;
     decimal Total = 0;
-   
+    decimal shTotal = 0;
+    int tax = 13;
+
 }
 
 <h1>Cart</h1>
@@ -23,7 +25,8 @@
                         <th>@Html.DisplayNameFor(item => item.Carts[0].TotalPrice)</th>
                         <th>Action</th>
                     </tr>
-                    @if(Model.Carts != null){
+                    @if (Model.Carts != null)
+                    {
                         foreach (var cartItem in Model.Carts)
                         {
                             <tr>
@@ -38,6 +41,7 @@
                                 </td>
                             </tr>
                             Total += cartItem.TotalPrice;
+                            shTotal += cartItem.TotalPrice;
                             No++;
                         }
                     }
@@ -46,13 +50,16 @@
                         <tr>
                             <td colspan="6" style="text-align: center">---No Item in List----</td>
                         </tr>
-                    } else { 
-                            <tr>
-                                <td colspan="6" style="text-align: center">---Custom Shoes----</td>
-                            </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" style="text-align: center">---Custom Shoes----</td>
+                        </tr>
 
                     }
-                    @if(Model.CustomCarts != null) { 
+                    @if (Model.CustomCarts != null)
+                    {
                         foreach (var cartItem in Model.CustomCarts)
                         {
                             <tr>
@@ -67,15 +74,32 @@
                                 </td>
                             </tr>
                             Total += cartItem.TotalPrice;
+                            shTotal += cartItem.TotalPrice;
                             No++;
                         }
                     }
 
+
+                    <tr>
+                        @{ decimal p = (shTotal * tax) / 100;
+                            shTotal += p;
+                            shTotal += 40; }
+                        <th>HST 13% (5% Fed and 8% Prov) : @p</th>
+
+                    </tr>
+
+                    <tr>
+                        <th>Delivery Charge: $40</th>
+                    </tr>
+
                     <tr>
                         <th colspan="4">Total</th>
 
-                        <th>@Total</th>
-                        <th>$</th>
+                        @* <th>@Total</th>*@
+
+                        <th>$@shTotal</th>
+
+                        <th></th>
                     </tr>
                     @if (Model.Carts != null || Model.CustomCarts != null)
                     {
