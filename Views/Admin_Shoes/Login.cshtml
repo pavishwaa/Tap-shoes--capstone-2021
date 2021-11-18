@@ -1,0 +1,84 @@
+﻿@model TapShoesCanada.Models.User
+
+@{
+	ViewData["Title"] = "Login";
+}
+
+<style>
+	input[type=text], select {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	input[type=submit] {
+		width: 100%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+
+	section div {
+		border-radius: 5px;
+		background-color: #f2f2f2;
+		padding: 20px;
+		left: 25%;
+		width: 50%;
+	}
+</style>
+
+
+<html>
+
+
+<body>
+	
+		<h1>Login</h1>
+	
+
+	<hr />
+	<center>
+		<b>  @ViewBag.message </b>
+	</center>
+
+	<section>
+			<form asp-action="Login">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="form-group">
+					<label asp-for="Email" class="control-label"></label>
+					<input asp-for="Email" class="form-control" />
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Password" class="control-label"></label>
+					<input asp-for="Password" class="form-control" />
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Log In" class="btn btn-primary" />
+				</div>
+			</form>
+	</section>
+
+	<div>
+		<a asp-action="Register">Not registered yet? Create Account</a>
+	</div>
+
+</body>
+</html>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

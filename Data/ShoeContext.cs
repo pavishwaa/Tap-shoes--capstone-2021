@@ -23,6 +23,8 @@ namespace TapShoesCanada.Data
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Custom_shoe> Custom_Shoes { get; set; }
+
+        public DbSet<TapShoesCanada.Models.Admin_Shoes> Admin_Shoes { get; set; }
     }
 
 }
