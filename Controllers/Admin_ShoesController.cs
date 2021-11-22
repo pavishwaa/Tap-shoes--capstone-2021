@@ -22,7 +22,7 @@ namespace TapShoesCanada.Controllers
         // GET: Admin_Shoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Admin_Shoes.ToListAsync());
+            return View(await _context.Shoes.ToListAsync());
         }
 
         // GET: Admin_Shoes/Details/5
@@ -33,7 +33,7 @@ namespace TapShoesCanada.Controllers
                 return NotFound();
             }
 
-            var admin_Shoes = await _context.Admin_Shoes
+            var admin_Shoes = await _context.Shoes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (admin_Shoes == null)
             {
@@ -54,7 +54,7 @@ namespace TapShoesCanada.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Size,Style,Model,Colour1,Colour2,Sole,Lace,Img_Lk,Price,Model_Type")] Admin_Shoes admin_Shoes)
+        public async Task<IActionResult> Create([Bind("Id,Size,Style,Model,Colour1,Colour2,Sole,Lace,Img_Lk,Price,Model_Type")] Shoe admin_Shoes)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace TapShoesCanada.Controllers
                 return NotFound();
             }
 
-            var admin_Shoes = await _context.Admin_Shoes.FindAsync(id);
+            var admin_Shoes = await _context.Shoes.FindAsync(id);
             if (admin_Shoes == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace TapShoesCanada.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Size,Style,Model,Colour1,Colour2,Sole,Lace,Img_Lk,Price,Model_Type")] Admin_Shoes admin_Shoes)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Size,Style,Model,Colour1,Colour2,Sole,Lace,Img_Lk,Price,Model_Type")] Shoe admin_Shoes)
         {
             if (id != admin_Shoes.Id)
             {
@@ -124,7 +124,7 @@ namespace TapShoesCanada.Controllers
                 return NotFound();
             }
 
-            var admin_Shoes = await _context.Admin_Shoes
+            var admin_Shoes = await _context.Shoes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (admin_Shoes == null)
             {
@@ -139,15 +139,15 @@ namespace TapShoesCanada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var admin_Shoes = await _context.Admin_Shoes.FindAsync(id);
-            _context.Admin_Shoes.Remove(admin_Shoes);
+            var admin_Shoes = await _context.Shoes.FindAsync(id);
+            _context.Shoes.Remove(admin_Shoes);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool Admin_ShoesExists(int id)
         {
-            return _context.Admin_Shoes.Any(e => e.Id == id);
+            return _context.Shoes.Any(e => e.Id == id);
         }
     }
 }

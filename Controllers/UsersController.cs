@@ -67,6 +67,7 @@ using TapShoesCanada.Models;
 		[ValidateAntiForgeryToken]
 		public IActionResult Login(User user)
 		{
+			
 			var _user = _context.Users.Where(s => s.Email == user.Email);
 			if (_user.Any())
 			{
