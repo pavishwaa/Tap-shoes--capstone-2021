@@ -1,0 +1,89 @@
+﻿@model IEnumerable<TapShoesCanada.Models.Admin_Shoes>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Style)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Colour1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Colour2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sole)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Img_Lk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model_Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Style)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colour1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colour2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sole)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Img_Lk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model_Type)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
