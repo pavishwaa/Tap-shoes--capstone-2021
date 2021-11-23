@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -149,5 +151,59 @@ namespace TapShoesCanada.Controllers
         {
             return _context.Shoes.Any(e => e.Id == id);
         }
+
+        // admin Login
+
+        public IActionResult Login(Boolean checkoutLogin, String message)
+        {
+            if (checkoutLogin) ViewBag.message = "Login to checkout!";
+            if (message != "")
+            {
+                ViewBag.message = message;
+            }
+            return View();
+        }
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(User user)
+        {
+
+            var _user = _context.Users.Where(s => s.Email == "admin@gmail.com");
+            if (_user.Any())
+            {
+
+                if (_user.Where(s => s.Password == user.Password).Any())
+                {
+                    User userObj = _user.Where(s => s.Password == user.Password).FirstOrDefault();
+                    HttpContext.Session.SetString(SessionData.loggedUserID, userObj.UserId.ToString());
+                    ViewBag.message = "Login Successfull!";
+                    return RedirectToAction(nameof(Index));
+                    //return Json(new { status = true, message = "Login Successfull!" });
+                }
+                else
+                {
+                    ViewBag.message = "This page is only avaliable to admin";
+
+                    //return Json(new { status = false, message = "Invalid Password!" });
+                    return View();
+                }
+            }
+            else
+            {
+                //return Json(new { status = false, message = "Invalid Email!" });
+
+                ViewBag.message = "Incorrect E-mail address!";
+
+                return View();
+
+            }
+        }
+
+
+        // User Operations
     }
 }
