@@ -9,7 +9,28 @@
 
 }
 
-<h1>Cart</h1>
+
+<style>
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th, td {
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #f2f2f2
+	}
+
+	th {
+		background-color: #04AA6D;
+		color: white;
+	}
+</style>
+<h1>My Cart</h1>
 <hr/>
     <div class="col-lg-12">
         <form>
@@ -48,13 +69,13 @@
                     @if (Model.CustomCarts == null && Model.Carts == null)
                     {
                         <tr>
-                            <td colspan="6" style="text-align: center">---No Item in List----</td>
+                            <td colspan="6" style="text-align: center; background-color:yellow">---No Item in List----</td>
                         </tr>
                     }
                     else
                     {
                         <tr>
-                            <td colspan="6" style="text-align: center">---Custom Shoes----</td>
+                            <td colspan="6" style="text-align: center; background-color: yellow">---Custom Shoes----</td>
                         </tr>
 
                     }
@@ -80,18 +101,27 @@
                     }
 
 
-                    <tr>
-                        @{ decimal p = (shTotal * tax) / 100;
-                            shTotal += p;
-                            shTotal += 40; }
-                        <th>HST 13% (5% Fed and 8% Prov) : @p</th>
+				<tr>
+					@{ decimal p = (shTotal * tax) / 100;
+						shTotal += p;
+						shTotal += 40; }
+					<th style="background-color: cornflowerblue">HST 13% (5% Fed and 8% Prov) </th>
+					<th style="background-color: cornflowerblue"></th>
+					<th style="background-color: cornflowerblue"></th>
+					<th style="background-color: cornflowerblue"></th>
+					<th style="background-color: cornflowerblue">@p</th>
+					<th style="background-color: cornflowerblue"></th>
+				</tr>
 
-                    </tr>
-
-                    <tr>
-                        <th>Delivery Charge: $40</th>
-                    </tr>
-
+				<tr>
+					<th style="background-color: cornflowerblue">Delivery Charge</th>
+					<th style="background-color: cornflowerblue"></th>
+					<th style="background-color: cornflowerblue"></th>
+					<th style="background-color: cornflowerblue"></th>
+					<th style="background-color: cornflowerblue">$40</th>
+					<th style="background-color: cornflowerblue"></th>
+				</tr>
+                  
                     <tr>
                         <th colspan="4">Total</th>
 
@@ -101,11 +131,13 @@
 
                         <th></th>
                     </tr>
+                
                     @if (Model.Carts != null || Model.CustomCarts != null)
                     {
+                        
                         <tr>
-                            <th colspan="5"></th>
-                            <th><input type="submit" class="btn btn-primary" value="Checkout" formmethod="post" formaction="@Url.ActionLink("Checkout", "Cart")"></th>
+                            <th style="background-color: aliceblue" colspan="5"></th>
+                            <th style="background-color: aliceblue"><input type="submit" class="btn btn-primary" value="Checkout" formmethod="post" formaction="@Url.ActionLink("Checkout", "Cart")"></th>
                         </tr>
                     }
                 </table>

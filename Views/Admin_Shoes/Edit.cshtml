@@ -4,75 +4,129 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Admin_Shoes</h4>
+<style>
+	input[type=text], select {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	input[type=submit] {
+		width: 100%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+
+	section div {
+		border-radius: 5px;
+		background-color: #f2f2f2;
+		padding: 10px;
+		left: 25%;
+		width: 210%;
+	}
+
+	.btn {
+		width: 20%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+</style>
+<h1>Edit Shoe</h1>
+
+@*<h4>Admin_Shoes</h4>*@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Size" class="control-label"></label>
-                <input asp-for="Size" class="form-control" />
-                <span asp-validation-for="Size" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Style" class="control-label"></label>
-                <input asp-for="Style" class="form-control" />
-                <span asp-validation-for="Style" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Colour1" class="control-label"></label>
-                <input asp-for="Colour1" class="form-control" />
-                <span asp-validation-for="Colour1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Colour2" class="control-label"></label>
-                <input asp-for="Colour2" class="form-control" />
-                <span asp-validation-for="Colour2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sole" class="control-label"></label>
-                <input asp-for="Sole" class="form-control" />
-                <span asp-validation-for="Sole" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Lace" class="control-label"></label>
-                <input asp-for="Lace" class="form-control" />
-                <span asp-validation-for="Lace" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Img_Lk" class="control-label"></label>
-                <input asp-for="Img_Lk" class="form-control" />
-                <span asp-validation-for="Img_Lk" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model_Type" class="control-label"></label>
-                <input asp-for="Model_Type" class="form-control" />
-                <span asp-validation-for="Model_Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+		<section>
+			<form asp-action="Edit">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<input type="hidden" asp-for="Id" />
+				<div class="form-group">
+					<label asp-for="Size" class="control-label"></label>
+					<input asp-for="Size" class="form-control" />
+					<span asp-validation-for="Size" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Style" class="control-label"></label>
+					<input asp-for="Style" class="form-control" />
+					<span asp-validation-for="Style" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Model" class="control-label"></label>
+					<input asp-for="Model" class="form-control" />
+					<span asp-validation-for="Model" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Colour1" class="control-label"></label>
+					<input asp-for="Colour1" class="form-control" />
+					<span asp-validation-for="Colour1" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Colour2" class="control-label"></label>
+					<input asp-for="Colour2" class="form-control" />
+					<span asp-validation-for="Colour2" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Sole" class="control-label"></label>
+					<input asp-for="Sole" class="form-control" />
+					<span asp-validation-for="Sole" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Lace" class="control-label"></label>
+					<input asp-for="Lace" class="form-control" />
+					<span asp-validation-for="Lace" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Img_Lk" class="control-label"></label>
+					<input asp-for="Img_Lk" class="form-control" />
+					<span asp-validation-for="Img_Lk" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Price" class="control-label"></label>
+					<input asp-for="Price" class="form-control" />
+					<span asp-validation-for="Price" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Model_Type" class="control-label"></label>
+					<input asp-for="Model_Type" class="form-control" />
+					<span asp-validation-for="Model_Type" class="text-danger"></span>
+				</div>
+
+				<div class="form-group">
+					<input type="submit" value="Save" class="btn btn-primary" />
+				</div>
+			</form>
+
+			
+		</section>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+	<div>
+		<a   class="btn" asp-action="Index">Back to List</a>
+	</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

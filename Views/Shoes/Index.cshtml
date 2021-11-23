@@ -23,10 +23,25 @@
 		background-color: #04AA6D;
 		color: white;
 	}
+
+	.button {
+		background-color: cornflowerblue;
+		border: none;
+		color: white;
+		padding: 3px 25px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		margin: 4px 2px;
+		cursor: pointer;
+		font-size: 12px;
+		border-radius: 5px;
+	}
+
 </style>
 
 <form>
-    <h1>Index</h1>
+    
     <div>
         <label>
             Shoe Size:
@@ -89,9 +104,9 @@
                     </td>
 
                     <td>
-                        @*  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        *@               <a asp-action="Details" asp-route-id="@item.Id">Details </a>
-                        @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                        <a class="button" asp-action="Details" asp-route-id="@item.Id">Details </a>
+                        @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                     </td>
                 </tr>
             }

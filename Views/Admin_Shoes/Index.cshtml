@@ -4,10 +4,59 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+
+
+<style>
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th, td {
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #f2f2f2
+	}
+
+	th {
+		background-color: #04AA6D;
+		color: white;
+	}
+
+	.button {
+		background-color: cornflowerblue; 
+		border: none;
+		color: white;
+		padding: 3px 25px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		margin: 4px 2px;
+		cursor: pointer;
+		font-size: 12px;
+		border-radius: 5px;
+	}
+
+	.btn {
+		width: 20%;
+		background-color: cornflowerblue;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+</style>
+
+<h1>Inventory List</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn" asp-action="Create">Create New</a>
 </p>
 <table class="table" style="width:100%">
     <thead>
@@ -69,20 +118,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Lace)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Img_Lk)
-            </td>
+			<td>
+				@*@Html.DisplayFor(modelItem => item.Img_Lk)*@
+				<img src="@item.Img_Lk" height="70" width="70">
+			</td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Model_Type)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <br />
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> <br />
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+			<td>
+				<a class="button" asp-action="Edit" asp-route-id="@item.Id">Edit</a> <br />
+				<a class="button" asp-action="Details" asp-route-id="@item.Id">Details</a> <br />
+				<a class="button" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+			</td>
         </tr>
 }
     </tbody>
