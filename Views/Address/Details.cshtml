@@ -5,52 +5,71 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<style>
+	.btn {
+		width: 20%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+</style>
+
+
+<h1>Address Details</h1>
 
 <div>
-    <h4>Address</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CustomerName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressLine1)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AddressLine1)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressLine2)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AddressLine2)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LandMark)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LandMark)
-        </dd>
-        <dt class = "col-sm-2">
-         @*   @Html.DisplayNameFor(model => model.PinCode)*@
-            Postal Code:
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PinCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContactNo)
-        </dd>
-    </dl>
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.CustomerName)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.CustomerName)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.AddressLine1)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.AddressLine1)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.AddressLine2)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.AddressLine2)
+		</dd>
+
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.LandMark)
+		</dt>
+		
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.LandMark)
+		</dd>
+		<dt class="col-sm-2">
+			@*   @Html.DisplayNameFor(model => model.PinCode)*@
+			@* Postal Code:*@
+		</dt>
+		<dd class="col-sm-10">
+			<b>Postal Code </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			@Html.DisplayFor(model => model.PinCode)
+		</dd>
+		<dt class="col-sm-2">
+			@* @Html.DisplayNameFor(model => model.ContactNo)*@
+		</dt>
+		<dd class="col-sm-10">
+			<b>Contact No </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			@Html.DisplayFor(model => model.ContactNo)
+		</dd>
+	</dl>
 </div>
 <div>
-    <a asp-action="Next" asp-route-id="@Model.AddressId">Next</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn" asp-action="Next" asp-route-id="@Model.AddressId">Go to Checkout</a> |
+    <a class="btn" asp-action="Index">Back to Address List</a>
 </div>

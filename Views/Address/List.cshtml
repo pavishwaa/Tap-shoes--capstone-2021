@@ -5,10 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>List</h1>
+<style>
+	.btn {
+		width: 20%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+</style>
 
 <p>
-    <a asp-action="Index">Create New</a>
+    <a asp-action="Index">Add New Address</a>
 </p>
 <table class="table">
     <thead>
@@ -57,9 +68,9 @@
                 @Html.DisplayFor(modelItem => item.ContactNo)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.AddressId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AddressId">Select</a> |
-                <a asp-action="DeleteAddress" asp-route-id="@item.AddressId">Delete</a>
+                <a class="btn" asp-action="Edit" asp-route-id="@item.AddressId">Edit</a> |
+                <a class="btn" asp-action="Details" asp-route-id="@item.AddressId">Select</a> |
+                <a class="btn" asp-action="DeleteAddress" asp-route-id="@item.AddressId">Delete</a>
             </td>
         </tr>
 }
